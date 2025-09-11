@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles.css";
 
-export default function MoviesCard({ movie }) {
+export default function MoviesCard({ movie, isWatchlisted, toggleWatchlist }) {
   const handleError = (e) => {
     e.target.src = "images/default.jpg";
   };

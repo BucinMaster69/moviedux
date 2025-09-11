@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles.css";
 import MoviesCard from "./MoviesCard";
 
-export default function MoviesGrid() {
-  const [movies, setMovies] = useState([]);
+export default function MoviesGrid({ movies, watchlist, toggleWatchlist }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [genre, setSearchGenre] = useState("All Genre");
   const [rating, setSearchRating] = useState("All");
@@ -52,12 +51,6 @@ export default function MoviesGrid() {
       matchesSearch(movie, searchTerm)
   );
 
-  useEffect(() => {
-    fetch("movies.json")
-      .then((response) => response.json())
-      .then((data) => setMovies(data));
-  }, []);
-
   return (
     <div>
       <input
@@ -100,7 +93,12 @@ export default function MoviesGrid() {
 
       <div className="movies-grid">
         {filterMovies.map((movie) => (
-          <MoviesCard movie={movie} key={movie.id}></MoviesCard>
+          <MoviesCard
+            movie={movie}
+            key={movie.id}
+            toggleWatchlist={toggleWatchlist}
+            isWatchlisted={watchlist.includes(movie.id)}
+          ></MoviesCard>
         ))}
       </div>
     </div>
